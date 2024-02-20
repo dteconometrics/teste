@@ -1,0 +1,13 @@
+# Filtro 
+
+taxas["Year"] = pd.to_datetime(taxas["data"]).dt.year
+
+taxas["Quarter"] = pd.to_datetime(taxas["data"]).dt.quarter
+
+
+taxas_filtered = taxas[taxas["Year"].isin([2021, 2022, 2023]) & taxas["Quarter"].isin([1, 2, 3, 4])]
+
+taxas_filtered["Month"] = taxas_filtered["data"].apply(lambda x: str(x.year) + "-" + str(x.month))
+
+month = st.sidebar.selectbox("Mês", taxas_filtered["Month"].unique())
+
